@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio de Basile Bargibant">
+<title>Basile Bargibant | Développeur</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+--primary:#1f2933;
+--secondary:#2563eb;
+--light:#f5f7fa;
+--radius:12px;
+--transition:0.3s ease;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+background:var(--light);
+color:var(--primary);
+line-height:1.7;
+}
+
+header{
+background:var(--primary);
+color:white;
+text-align:center;
+padding:3rem 1rem;
+}
+
+header h1{font-size:2.5rem}
+header p{margin-top:0.7rem;color:#cbd5e1}
+
+.github-link{
+display:inline-flex;
+gap:0.5rem;
+align-items:center;
+margin-top:1.5rem;
+color:white;
+text-decoration:none;
+transition:var(--transition)
+}
+
+.github-link:hover{color:var(--secondary)}
+
+main{
+max-width:900px;
+margin:auto;
+padding:3rem 1.5rem;
+}
+
+section{margin-bottom:3rem}
+
+h2{
+margin-bottom:1rem;
+border-left:5px solid var(--secondary);
+padding-left:0.8rem;
+}
+
+.card{
+background:white;
+padding:1.5rem;
+border-radius:var(--radius);
+box-shadow:0 6px 15px rgba(0,0,0,0.05);
+margin-bottom:1.5rem;
+}
+
+.skill-list{
+display:flex;
+flex-wrap:wrap;
+gap:0.8rem;
+}
+
+.skill{
+background:white;
+padding:0.6rem 1rem;
+border-radius:50px;
+box-shadow:0 4px 10px rgba(0,0,0,0.05);
+display:flex;
+align-items:center;
+gap:0.5rem;
+}
+
+.skill i{color:var(--secondary)}
+
+a{
+color:var(--secondary);
+text-decoration:none;
+transition:var(--transition);
+font-weight:500;
+position:relative;
+}
+
+a:hover{
+color:#1d4ed8;
+}
+
+a::after{
+content:'';
+position:absolute;
+bottom:-2px;
+left:0;
+width:0;
+height:2px;
+background:var(--secondary);
+transition:width var(--transition);
+}
+
+a:hover::after{
+width:100%;
+}
+
+.card a{
+display:inline-flex;
+align-items:center;
+gap:0.5rem;
+margin-top:1rem;
+padding:0.5rem 1rem;
+background:linear-gradient(135deg, var(--secondary), #1d4ed8);
+color:white;
+border-radius:6px;
+}
+
+.card a:hover{
+color:white;
+background:linear-gradient(135deg, #1d4ed8, var(--secondary));
+box-shadow:0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.card a::after{
+display:none;
+}
+
+.card a i{
+color:white;
+}
+
+.skill a::after{
+display:none;
+}
+
+footer{
+background:var(--primary);
+color:white;
+text-align:center;
+padding:1.5rem;
+border-top:3px solid var(--secondary);
+}
+
+footer a{
+color:#cbd5e1;
+}
+
+footer a:hover{
+color:white;
+}
+
+.modal{
+display:none;
+position:fixed;
+z-index:1000;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background-color:rgba(0,0,0,0.5);
+}
+
+.modal-content{
+background-color:white;
+margin:5vh auto;
+padding:2rem;
+border-radius:var(--radius);
+width:90%;
+max-width:600px;
+max-height:80vh;
+overflow-y:auto;
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+
+.modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:1.5rem;
+border-bottom:2px solid var(--secondary);
+padding-bottom:1rem;
+}
+
+.modal-header h2{
+margin:0;
+border:none;
+padding:0;
+color:var(--primary);
+}
+
+.close-btn{
+font-size:1.8rem;
+color:#aaa;
+cursor:pointer;
+background:none;
+border:none;
+padding:0;
+}
+
+.close-btn:hover{
+color:var(--primary);
+}
+
+.modal-section{
+margin-bottom:1.5rem;
+}
+
+.modal-section h3{
+color:var(--secondary);
+margin-bottom:0.5rem;
+font-size:1.1rem;
+}
+
+.modal-section p{
+margin:0.3rem 0;
+color:var(--primary);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Basile Bargibant</h1>
+<p>Passionné d'informatique</p>
+
+<a href="https://github.com/iBasile" target="_blank" rel="noopener noreferrer" class="github-link">
+<i class="fab fa-github"></i> Mon GitHub
+</a>
+</header>
+
+<main>
+
+<section>
+<h2>À propos</h2>
+<div class="card">
+<p>
+Je suis un adolescent passionné d’informatique et de développement logiciel. 
+J’aime comprendre comment fonctionnent les systèmes et créer mes propres applications.
+</p>
+<br>
+<p>
+Je développe principalement des applications de bureau et mobiles, mais je m'interesse a beaucoup
+d'autres domaines.
+</p>
+</div>
+</section>
+
+<section>
+<h2>Mes projets</h2>
+
+<div class="card">
+<strong>Oremus (En cours de développement)</strong><br><br>
+
+Application développée en Swift permettant de consulter les lectures du jour pour la messe.
+<br>
+<a href="https://github.com/iBasile/Oremus" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Voir le projet</a>
+</div>
+
+<div class="card">
+<strong>Dedica'Caisse</strong><br><br>
+Logiciel de caisse conçu pour un salon du livre.<br>
+Gestion d'une base de données, lecture de codes-barres et gestion des ventes.<br>
+Technologies : Electron, NodeJS, MySQL/MariaDB.
+<br>
+<a href="https://github.com/Dedica-Marcq/Dedica-Caisse" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Voir le projet</a>
+</div>
+
+</section>
+
+<section>
+<h2>Languages que j’ai déjà pratiqué</h2>
+
+<div class="skill-list">
+  <a href="https://developer.apple.com/swift/" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fab fa-swift"></i> Swift
+  </a>
+  <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fab fa-js"></i> JavaScript
+  </a>
+  <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fab fa-node-js"></i> NodeJS
+  </a>
+  <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fab fa-python"></i> Python
+  </a>
+  <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fas fa-database"></i> MySQL
+  </a>
+  <a href="https://php.net/" target="_blank" rel="noopener noreferrer" class="skill">
+    <i class="fa-brands fa-php"></i> PHP
+  </a>
+</div>
+</section>
+
+<section>
+<h2>Contact</h2></p>
+<p><strong>GitHub :</strong> <a href="https://github.com/iBasile" target="_blank" rel="noopener noreferrer">github.com/iBasile</a>
+<p><strong>Email :</strong> <span id="email"></span></p>
+</div>
+</section>
+
+</main>
+
+<footer>
+© 2026 Basile Bargibant • Touts droits réservés • <a href="#" id="mentions-link">Mentions légales</a>
+</footer>
+
+<!-- Modal Mentions légales -->
+<div id="mentions-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Mentions légales</h2>
+      <button class="close-btn" id="close-modal">&times;</button>
+    </div>
+    
+    <div class="modal-section">
+      <h3>1. Responsable du site</h3>
+      <p><strong>Basile BARGIBANT</strong></p>
+      <p>Email : <a href="mailto:contact.basilebargibant@proton.me">contact.basilebargibant@proton.me</a></p>
+    </div>
+
+    <div class="modal-section">
+      <h3>2. Hébergement</h3>
+      <p><strong>Hébergeur :</strong></p>
+      <p>Google Ireland Limited<br>
+      Gordon House<br>
+      Barrow Street<br>
+      Dublin 4<br>
+      Irlande</p>
+      <p><strong>Service utilisé :</strong> Firebase Hosting</p>
+      <p><strong>Opérateur :</strong> Google LLC<br>
+      1600 Amphitheatre Parkway<br>
+      Mountain View, CA 94043<br>
+      États-Unis</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>3. Données personnelles</h3>
+      <p>Ce site ne collecte aucune donnée personnelle et ne dépose aucun cookie sur votre ordinateur.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>4. Propriété intellectuelle</h3>
+      <p>Le contenu du site (textes, images, projets, logos) est la propriété exclusive de Basile BARGIBANT, sauf les logos des langages de programmation et le logo de GitHub.</p>
+      <p>Toute reproduction est interdite sans autorisation préalable.</p>
+    </div>
+
+    <div class="modal-section">
+      <p>Dernière mise à jour : 3 mars 2026</p>
+      <p>Version du site : 1.0.1</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Obfusquer l'email contre les bots
+document.addEventListener("DOMContentLoaded", function() {
+  const parts = ['contact', 'basilebargibant', 'proton', 'me'];
+  const email = parts[0] + '.' + parts[1] + '@' + parts[2] + '.' + parts[3];
+  const emailSpan = document.getElementById("email");
+  emailSpan.innerHTML = '<a href="' + 'mai' + 'lto:' + email + '">' + email + '</a>';
+});
+
+// Gestion de la pop-up mentions légales
+const modal = document.getElementById("mentions-modal");
+const mentionsLink = document.getElementById("mentions-link");
+const closeModal = document.getElementById("close-modal");
+
+mentionsLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.style.display = "block";
+});
+
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>

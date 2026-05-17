@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice de Propriété — Code Source Confidentiel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root{
+            --primary:#1f2933;
+            --secondary:#2563eb;
+            --light:#f5f7fa;
+            --radius:12px;
+            --transition:0.3s ease;
+        }
+
+        *{box-sizing:border-box;margin:0;padding:0}
+
+        body{
+            font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+            background:var(--light);
+            color:var(--primary);
+            line-height:1.7;
+        }
+
+        header{
+            background:var(--primary);
+            color:white;
+            text-align:center;
+            padding:3rem 1rem;
+        }
+
+        header h1{font-size:2.5rem}
+        header p{margin-top:0.7rem;color:#cbd5e1}
+
+        .github-link{
+            display:inline-flex;
+            gap:0.5rem;
+            align-items:center;
+            margin-top:1.5rem;
+            color:white;
+            text-decoration:none;
+            transition:var(--transition)
+        }
+
+        .github-link:hover{color:var(--secondary)}
+
+        main{
+            max-width:900px;
+            margin:auto;
+            padding:3rem 1.5rem;
+        }
+
+        section{margin-bottom:3rem}
+
+        h1, h2{
+            margin-bottom:1rem;
+            border-left:5px solid var(--secondary);
+            padding-left:0.8rem;
+        }
+
+        .card{
+            background:white;
+            padding:1.5rem;
+            border-radius:var(--radius);
+            box-shadow:0 6px 15px rgba(0,0,0,0.05);
+            margin-bottom:1.5rem;
+        }
+
+        .skill-list{
+            display:flex;
+            flex-wrap:wrap;
+            gap:0.8rem;
+        }
+
+        .skill{
+            background:white;
+            padding:0.6rem 1rem;
+            border-radius:50px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.05);
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+        }
+
+        .skill i{color:var(--secondary)}
+
+        a{
+            color:var(--secondary);
+            text-decoration:none;
+            transition:var(--transition);
+            font-weight:500;
+            position:relative;
+        }
+
+        a:hover{
+            color:#1d4ed8;
+        }
+
+        a::after{
+            content:'';
+            position:absolute;
+            bottom:-2px;
+            left:0;
+            width:0;
+            height:2px;
+            background:var(--secondary);
+            transition:width var(--transition);
+        }
+
+        a:hover::after{
+            width:100%;
+        }
+
+        .card a{
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            margin-top:1rem;
+            padding:0.5rem 1rem;
+            background:linear-gradient(135deg, var(--secondary), #1d4ed8);
+            color:white;
+            border-radius:6px;
+        }
+
+        .card a:hover{
+            color:white;
+            background:linear-gradient(135deg, #1d4ed8, var(--secondary));
+            box-shadow:0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .card a::after{
+            display:none;
+        }
+
+        .card a i{
+            color:white;
+        }
+
+        .skill a::after{
+            display:none;
+        }
+
+        footer{
+            background:var(--primary);
+            color:white;
+            text-align:center;
+            padding:1.5rem;
+            border-top:3px solid var(--secondary);
+        }
+
+        footer a{
+            color:#cbd5e1;
+        }
+
+        footer a:hover{
+            color:white;
+        }
+
+        .modal{
+            display:none;
+            position:fixed;
+            z-index:1000;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(0,0,0,0.5);
+        }
+
+        .modal-content{
+            background-color:white;
+            margin:5vh auto;
+            padding:2rem;
+            border-radius:var(--radius);
+            width:90%;
+            max-width:600px;
+            max-height:80vh;
+            overflow-y:auto;
+            box-shadow:0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:1.5rem;
+            border-bottom:2px solid var(--secondary);
+            padding-bottom:1rem;
+        }
+
+        .modal-header h2{
+            margin:0;
+            border:none;
+            padding:0;
+            color:var(--primary);
+        }
+
+        .close-btn{
+            font-size:1.8rem;
+            color:#aaa;
+            cursor:pointer;
+            background:none;
+            border:none;
+            padding:0;
+        }
+
+        .close-btn:hover{
+            color:var(--primary);
+        }
+
+        .modal-section{
+            margin-bottom:1.5rem;
+        }
+
+        .modal-section h3{
+            color:var(--secondary);
+            margin-bottom:0.5rem;
+            font-size:1.1rem;
+        }
+
+        .modal-section p{
+            margin:0.3rem 0;
+            color:var(--primary);
+        }
+
+        /* Style spécifique pour la notice */
+        .notice {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .notice h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .notice h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .notice p {
+            margin-bottom: 1rem;
+        }
+
+        .notice ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .notice ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .notice hr {
+            border: none;
+            border-top: 2px solid var(--secondary);
+            margin: 2rem 0;
+        }
+
+        .notice strong {
+            color: var(--primary);
+        }
+
+        .notice a {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="notice">
+            <h1>NOTICE DE PROPRIÉTÉ — CODE SOURCE CONFIDENTIEL</h1>
+            <p>Copyright © [2026] Éditions de la Licorne. Tous droits réservés.</p>
+
+            <hr>
+
+            <h2>Ayant-droit :</h2>
+            <p>
+                <strong>Éditions de la Licorne</strong>, entreprise immatriculée au RNE depuis le 17/10/2014
+            </p>
+            <p>
+                <strong>Dénomination</strong> : SARL EDITIONS DE LA LICORNE
+            </p>
+            <p>
+                <strong>SIREN</strong> : 805216991
+            </p>
+            <p>
+                <strong>SIRET</strong> : 80521699100010
+            </p>
+            <p>
+                Plus d'informations :
+                <a href="https://annuaire-entreprises.data.gouv.fr/entreprise/editions-de-la-licorne-805216991$0" target="_blank">
+                    annuaire-entreprises.data.gouv.fr/entreprise/editions-de-la-licorne-805216991
+                </a>
+            </p>
+
+            <hr>
+
+            <p>
+                Ce code source est la propriété exclusive et confidentielle des Éditions de la Licorne.
+            </p>
+            <p>
+                Il est destiné au fonctionnement interne du site <a href="https://editionsdelalicorne.com" target="_blank">editionsdelalicorne.com</a> uniquement.
+            </p>
+            <p>
+                Aucune licence d'utilisation, de reproduction, de modification ou de distribution n'est accordée à quiconque, explicitement ou implicitement.
+            </p>
+            <p>
+                Toute personne ayant accès à ce code sans autorisation écrite préalable des Éditions de la Licorne est tenue de :
+            </p>
+            <ul>
+                <li>Informer les Éditions de la Licorne par le biais d'un e-mail adressé à
+                    <a href="mailto:contact@editionsdelalicorne.com?&cc=eric.bargibant@outlook.fr">
+                        contact@editionsdelalicorne.com
+                    </a>
+                    et en ajoutant en copie-carbonne eric.bargibant@outlook.fr
+                    <a href="mailto:contact@editionsdelalicorne.com?&cc=eric.bargibant@outlook.fr">
+                        [Vous pouvez cliquer sur ce lien]
+                    </a>
+                </li>
+                <li>Cesser immédiatement toute consultation ou copie du code.</li>
+                <li>Détruire toute copie en sa possession.</li>
+                <li>Ne pas utiliser, reproduire, distribuer ou s'inspirer de ce code, en tout ou en partie, pour quelque usage que ce soit.</li>
+            </ul>
+            <p>
+                Toute utilisation non autorisée constitue une violation des droits d'auteur et pourra faire l'objet de poursuites civiles et/ou pénales conformément au Code de la propriété intellectuelle français et aux lois internationales applicables en matière de droit d'auteur.
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>UNAUTHORIZED ACCESS OR USE IS STRICTLY PROHIBITED.</strong>
+            </p>
+            <p>
+                This source code is confidential and proprietary to Éditions de la Licorne. Unauthorized use, reproduction or distribution is a violation of applicable law.
+            </p>
+
+            <hr>
+
+            <p>
+                Contact :
+                <a href="mailto:contact@editionsdelalicorne.com">
+                    contact@editionsdelalicorne.com
+                </a>
+            </p>
+        </div>
+    </main>
+</body>
+</html>

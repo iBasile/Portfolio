@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clé PGP — Basile BARGIBANT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e17;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent2: #0ea5e9;
+    --accent-glow: rgba(0, 212, 255, 0.15);
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial glow top */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* HEADER */
+  header {
+    padding: 4rem 0 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-glow);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  header h1 span {
+    color: var(--accent);
+  }
+
+  .subtitle {
+    margin-top: 0.8rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), var(--accent2), var(--border), transparent);
+    margin: 2rem 0;
+    animation: fadeIn 0.8s 0.3s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* IDENTITY CARD */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+
+  @media (max-width: 600px) {
+    .identity-grid { grid-template-columns: 1fr; }
+  }
+
+  .info-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .info-block:hover {
+    border-color: rgba(0,212,255,0.35);
+    box-shadow: 0 0 20px rgba(0,212,255,0.07);
+  }
+
+  .info-block.full {
+    grid-column: 1 / -1;
+  }
+
+  .info-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .info-value {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--text);
+    word-break: break-all;
+  }
+
+  .fingerprint-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+  }
+
+  .fp-chunk {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--surface2);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    letter-spacing: 0.08em;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .fp-chunk:hover {
+    background: var(--accent-glow);
+    color: var(--accent);
+    border-color: rgba(0,212,255,0.3);
+  }
+
+  /* KEY BLOCK */
+  .section-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .key-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.45s ease both;
+  }
+
+  .key-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .key-toolbar-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 6px;
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .copy-btn:hover {
+    background: rgba(0,212,255,0.25);
+    border-color: var(--accent);
+  }
+
+  .copy-btn.copied {
+    color: #4ade80;
+    border-color: rgba(74,222,128,0.4);
+    background: rgba(74,222,128,0.1);
+  }
+
+  .key-body {
+    padding: 1.2rem;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .key-body::-webkit-scrollbar { width: 4px; }
+  .key-body::-webkit-scrollbar-track { background: transparent; }
+  .key-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .key-text {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* ACTIONS */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s 0.55s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.6rem;
+    background: var(--accent);
+    color: #0a0e17;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #38e8ff;
+    box-shadow: 0 0 30px rgba(0,212,255,0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.6rem;
+    background: transparent;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    border: 1px solid rgba(0,212,255,0.35);
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* USAGE GUIDE */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+
+  .usage-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem;
+    transition: all 0.3s;
+  }
+
+  .usage-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  .usage-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .usage-card h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .usage-card p {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .usage-card code {
+    display: block;
+    margin-top: 0.7rem;
+    padding: 0.5rem 0.8rem;
+    background: var(--surface2);
+    border-radius: 6px;
+    font-size: 0.68rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    word-break: break-all;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    animation: fadeIn 1s 0.8s ease both;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="badge"><span class="badge-dot"></span>Clé publique vérifiée</div>
+    <h1>Basile <span>BARGIBANT</span></h1>
+    <p class="subtitle">basile.bargibant@icloud.com</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- Identity -->
+  <div class="section-title">Identité de la clé</div>
+  <div class="identity-grid">
+    <div class="info-block">
+      <div class="info-label">Algorithme</div>
+      <div class="info-value">RSA-4096</div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Créée le</div>
+      <div class="info-value">2025</div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Key ID court</div>
+      <div class="info-value">DA2E3E3D</div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Serveur de clés</div>
+      <div class="info-value">keys.openpgp.org</div>
+    </div>
+    <div class="info-block full">
+      <div class="info-label">Empreinte complète (Fingerprint)</div>
+      <div class="fingerprint-row">
+        <span class="fp-chunk">0A15</span>
+        <span class="fp-chunk">FDDE</span>
+        <span class="fp-chunk">001D</span>
+        <span class="fp-chunk">1CC9</span>
+        <span class="fp-chunk">3E7C</span>
+        <span class="fp-chunk">D2F2</span>
+        <span class="fp-chunk">D3E5</span>
+        <span class="fp-chunk">53A0</span>
+        <span class="fp-chunk">DA2E</span>
+        <span class="fp-chunk">3E3D</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key block -->
+  <div class="section-title">Bloc de clé publique</div>
+  <div class="key-wrapper">
+    <div class="key-toolbar">
+      <span class="key-toolbar-label">PGP PUBLIC KEY BLOCK</span>
+      <button class="copy-btn" id="copyBtn" onclick="copyKey()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copier
+      </button>
+    </div>
+    <div class="key-body">
+      <pre class="key-text" id="keyText">-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: 0A15 FDDE 001D 1CC9 3E7C  D2F2 D3E5 53A0 DA2E 3E3D
+Comment: Basile BARGIBANT &lt;basile.bargibant@icloud.com&gt;
+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
+EPbZZimG7AWypA==
+=jGM5
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <a class="btn-primary" href="https://keys.openpgp.org/vks/v1/by-fingerprint/0A15FDDE001D1CC93E7CD2F2D3E553A0DA2E3E3D" download="basile-bargibant.asc">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Télécharger la clé (.asc)
+    </a>
+    <a class="btn-secondary" href="https://keys.openpgp.org/search?q=0A15FDDE001D1CC93E7CD2F2D3E553A0DA2E3E3D" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Vérifier sur le serveur
+    </a>
+  </div>
+
+  <!-- Usage guide -->
+  <div class="section-title">Comment utiliser cette clé</div>
+  <div class="usage-grid">
+    <div class="usage-card">
+      <div class="usage-icon">📥</div>
+      <h3>Importer la clé</h3>
+      <p>Importez la clé dans votre trousseau GPG local via le terminal.</p>
+      <code>gpg --import basile-bargibant.asc</code>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🔒</div>
+      <h3>Chiffrer un message</h3>
+      <p>Chiffrez un fichier ou message destiné à Basile BARGIBANT.</p>
+      <code>gpg --encrypt -r basile.bargibant@icloud.com fichier.txt</code>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">✅</div>
+      <h3>Vérifier une signature</h3>
+      <p>Vérifiez qu'un document a bien été signé par cette clé.</p>
+      <code>gpg --verify fichier.sig fichier.txt</code>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">🌐</div>
+      <h3>Depuis le serveur de clés</h3>
+      <p>Récupérez directement depuis keys.openpgp.org.</p>
+      <code>gpg --keyserver keys.openpgp.org --recv-keys DA2E3E3D</code>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Empreinte&nbsp;: <strong style="color:var(--accent)">0A15 FDDE 001D 1CC9 3E7C D2F2 D3E5 53A0 DA2E 3E3D</strong><br>
+      <span style="margin-top:0.4rem;display:inline-block">
+        Vérifiez toujours l'empreinte avant de faire confiance à une clé publique. &nbsp;·&nbsp;
+        <a href="https://gnupg.org" target="_blank" rel="noopener">GnuPG</a>
+      </span>
+    </p>
+  </footer>
+</div>
+
+<script>
+function copyKey() {
+  const raw = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: 0A15 FDDE 001D 1CC9 3E7C  D2F2 D3E5 53A0 DA2E 3E3D
+Comment: Basile BARGIBANT <basile.bargibant@icloud.com>
+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
+EPbZZimG7AWypA==
+=jGM5
+-----END PGP PUBLIC KEY BLOCK-----`;
+
+  navigator.clipboard.writeText(raw).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copié !`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copier`;
+    }, 2500);
+  });
+}
+</script>
+</body>
+</html>

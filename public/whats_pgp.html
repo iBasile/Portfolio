@@ -498,7 +498,7 @@
 </head>
 
 <body>
-  <nav class="py-2 bg-body-tertiary border-bottom">
+  <!--nav class="py-2 bg-body-tertiary border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         <li class="nav-item"><a href="https://basile-bargibant.web.app" class="nav-link link-body-emphasis px-2">Accueil</a></li>
@@ -507,23 +507,19 @@
         <li class="nav-item"><a href="https://basile-bargibant.web.app/#contact" class="nav-link link-body-emphasis px-2">Contact</a></li>
       </ul>
     </div>
-  </nav>
+  </nav-->
   <div class="guide">
 
     <div class="hero">
-      <div class="hero-badge">Guide</div>
       <h1>PGP — Pretty Good Privacy</h1>
-      <p>Comprendre le chiffrement à clé publique, la signature numérique et la toile de confiance en quelques minutes.
-      </p>
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('concepts')">Les bases</button>
-      <button class="tab-btn" onclick="switchTab('fonctionnement')">Comment ça marche</button>
+      <button class="tab-btn active" onclick="switchTab('concepts')">La théorie</button>
+      <button class="tab-btn" onclick="switchTab('fonctionnement')">Comment l'utiliser ?</button>
       <button class="tab-btn" onclick="switchTab('scenarios')">Scénarios</button>
-      <button class="tab-btn" onclick="switchTab('usage')">Utilisation</button>
-      <button class="tab-btn" onclick="switchTab('faq')">Questions fréquentes</button>
-      <button class="tab-btn" onclick="switchTab('glossaire')">Glossaire</button>
+      <button class="tab-btn" onclick="switchTab('usage')">Commandes essentielles</button>
+      <button class="tab-btn" onclick="switchTab('faq')">Questions et Réponses</button>
     </div>
 
     <!-- Panel: Les bases -->
@@ -533,55 +529,44 @@
       <div class="concept-grid">
         <div class="concept-card purple">
           <div class="label">Clé publique</div>
-          <div class="concept-body">Partagée librement avec tout le monde. N'importe qui peut l'utiliser pour vous
-            envoyer un message chiffré ou vérifier votre signature.</div>
+          <div class="concept-body">Lorsque vous générez votre paire de clés, vous la partagez grâce à un <b>serveur de clés.</b>
+          Elle est utile lorsque votre interlocuteur veut chiffrer un message qui vous est adressé ou lorsque quelqu'un veut vérifier la signature de l'un de vos messages.</div>
         </div>
         <div class="concept-card teal">
           <div class="label">Clé privée</div>
-          <div class="concept-body">Gardée absolument secrète. Seule vous pouvez déchiffrer les messages qui vous sont
-            destinés ou signer des documents en votre nom.</div>
+          <div class="concept-body">Cette deuxième clé est à garder privée. Elle permet de déchiffrer les messages qui vous sont adressés ou de signer des messages en votre nom.</div>
         </div>
         <div class="concept-card amber">
           <div class="label">Chiffrement</div>
-          <div class="concept-body">On chiffre avec la clé publique du destinataire. Seul lui peut lire le message, car
-            lui seul possède la clé privée correspondante.</div>
+          <div class="concept-body">On chiffre un message grâce à la clé publique du destinataire. Lui seul pourra le lire grâce à sa clé privée.</div>
         </div>
         <div class="concept-card coral">
           <div class="label">Signature</div>
-          <div class="concept-body">On signe avec sa propre clé privée. N'importe qui peut vérifier la signature avec
+          <div class="concept-body">On signe un message avec sa propre clé privée. N'importe qui peut vérifier la signature avec
             votre clé publique : elle prouve que c'est bien vous.</div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">🏛️ Analogie du coffre-fort postal</div>
+        <div class="card-title">Un exemple :</div>
         <div class="card-body">
-          Imaginez qu'Alice distribue des de cadenas ouverts (sa clé publique) mais garde la seule clé qui les ouvre (sa
+          Imaginez qu'Alice distribue des cadenas ouverts (sa clé publique) mais garde la seule clé qui les ouvre (sa
           clé privée). Bob glisse un message dans une boîte, la ferme avec le cadenas d'Alice et la lui envoie.
           Impossible pour qui que ce soit d'ouvrir cette boîte… sauf Alice avec sa clé.
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">🔐 Pourquoi "asymétrique" ?</div>
+        <div class="card-title">Pourquoi "asymétrique" ?</div>
         <div class="card-body">
           Contrairement au chiffrement symétrique (même clé pour chiffrer et déchiffrer), PGP utilise une paire de clés
-          mathématiquement liées. Ce que l'une chiffre, seule l'autre peut le déchiffrer — et inversement. Ce lien
-          repose sur des problèmes mathématiques réputés impossibles à résoudre en temps raisonnable (factorisation de
-          grands entiers, courbes elliptiques…).
+          mathématiquement liées. Ce que l'une chiffre, seule l'autre peut le déchiffrer, et inversement.
         </div>
-      </div>
-
-      <div class="info-box">
-        <strong>💡 L'essentiel à retenir :</strong> PGP garantit confidentialité (seul le destinataire lit le message)
-        et authenticité (on sait qui a signé). Ces deux propriétés peuvent être utilisées ensemble ou séparément.
       </div>
     </div>
 
     <!-- Panel: Fonctionnement -->
     <div id="panel-fonctionnement" class="panel">
-      <div class="section-title">Étape par étape : chiffrer et signer</div>
-
       <div class="card">
         <div class="card-title"><span class="badge badge-amber">Chiffrer un message</span></div>
         <div class="card-body">
@@ -590,39 +575,35 @@
               <div class="step-num">1</div>
               <div class="step-content">
                 <strong>Obtenir la clé publique du destinataire</strong>
-                <p>Depuis un serveur de clés (<code>keys.openpgp.org</code>), une email, ou directement de la personne.
-                  Vérifier l'empreinte si possible.</p>
+                <p>Depuis un serveur de clés (<code>keys.openpgp.org</code>) ou directement de la personne, puis l'enregistrer au format <code>.asc</code></p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">2</div>
               <div class="step-content">
-                <strong>Générer une clé de session aléatoire</strong>
-                <p>PGP génère une clé symétrique temporaire (AES-256 par exemple) pour chiffrer le message réel — c'est
-                  plus rapide pour les gros fichiers.</p>
+                <strong>Importer la clé dans le trousseau</strong>
+                <p>On utilise un trousseau pour sauvegarder les clés publiques de ses interlocuteurs. Pour sauvegarder une clé, on utilise la commande <code>gpg --import public_key.asc</code></p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">3</div>
               <div class="step-content">
-                <strong>Chiffrer le message avec cette clé de session</strong>
-                <p>Le corps du message est chiffré symétriquement : rapide, même pour des fichiers volumineux.</p>
+                <strong>Écrire le message</strong>
+                <p>Écrire le message depuis un éditeur de texte, puis le sauvegarder au format <code>.txt</code></p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">4</div>
               <div class="step-content">
-                <strong>Chiffrer la clé de session avec la clé publique du destinataire</strong>
-                <p>Seul le destinataire pourra déchiffrer la clé de session avec sa clé privée, puis déchiffrer le
-                  message.</p>
+                <strong>Chiffrer le message avec la clé publique du destinataire</strong>
+                <p>On utilise pour cela la commande <code>gpg -er email@destinataire.com fichier.txt > message.pgp</code>. Le message chiffré est sauvegardé au format <code>.pgp</code></p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">5</div>
               <div class="step-content">
                 <strong>Envoyer le tout</strong>
-                <p>Un seul fichier <code>.gpg</code> ou bloc <code>-----BEGIN PGP MESSAGE-----</code> contient message
-                  chiffré + clé de session chiffrée.</p>
+                <p>On envoie le message au format <code>.pgp</code> au destinataire. Il poura le déchiffrer avec sa clé privée.</p>
               </div>
             </div>
           </div>
@@ -636,24 +617,15 @@
             <div class="step">
               <div class="step-num">1</div>
               <div class="step-content">
-                <strong>Calculer le hash du document</strong>
-                <p>Une empreinte numérique unique (SHA-256, SHA-512…) est calculée. Si un seul bit change, l'empreinte
-                  change complètement.</p>
+                <strong>Déchiffrer le message</strong>
+                <p>On utilise la commande <code>gpg -d fichier_chiffre.pgp > fichier_dechiffre.txt</code></p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">2</div>
               <div class="step-content">
-                <strong>Chiffrer le hash avec votre clé privée</strong>
-                <p>C'est votre signature. Seule votre clé privée peut créer cette signature.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-content">
-                <strong>Le destinataire vérifie</strong>
-                <p>Il déchiffre la signature avec votre clé publique pour retrouver le hash, recalcule le hash du
-                  document reçu et compare. S'ils correspondent : authentique et intègre.</p>
+                <strong>Le message est lisible</strong>
+                <p>Grâce à votre clé privée enregistrée dans votre ordinateur, vous pouvez lire le message.</p>
               </div>
             </div>
           </div>
@@ -668,8 +640,6 @@
       <div class="scenario-picker">
         <button class="scenario-btn active" onclick="showScenario('encrypt')">Envoyer un message chiffré</button>
         <button class="scenario-btn" onclick="showScenario('sign')">Signer un email</button>
-        <button class="scenario-btn" onclick="showScenario('both')">Chiffrer + Signer</button>
-        <button class="scenario-btn" onclick="showScenario('eve')">Attaque (man-in-the-middle)</button>
       </div>
 
       <div class="scenario-display" id="scenario-display">
@@ -679,38 +649,9 @@
 
     <!-- Panel: Utilisation -->
     <div id="panel-usage" class="panel">
-      <div class="section-title">Cas d'usage courants</div>
+      <div class="section-title">Commandes GPG essentielles</div>
 
       <div class="card">
-        <div class="card-title">📧 Emails chiffrés</div>
-        <div class="card-body">Outils comme <strong>Thunderbird + Enigmail</strong>, <strong>GPG Suite</strong> (macOS)
-          ou <strong>Kleopatra</strong> (Windows) s'intègrent dans votre client mail pour chiffrer/signer
-          automatiquement vos emails avec vos correspondants.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">📦 Vérification de logiciels</div>
-        <div class="card-body">Des distributions Linux (Debian, Ubuntu, Arch…) signent leurs paquets et ISOs avec PGP.
-          Vous pouvez vérifier qu'un fichier téléchargé n'a pas été altéré avec
-          <code>gpg --verify fichier.sig fichier.iso</code>.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">🔐 Gestionnaires de mots de passe</div>
-        <div class="card-body"><strong>pass</strong>, le gestionnaire de mots de passe Unix standard, chiffre chaque
-          entrée avec votre clé PGP. Votre coffre est un simple dossier de fichiers chiffrés.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">🤝 Toile de confiance (Web of Trust)</div>
-        <div class="card-body">Plutôt qu'une autorité centrale, PGP repose sur la confiance distribuée. Si vous faites
-          confiance à Alice, et qu'Alice a signé la clé de Bob, vous pouvez faire confiance à Bob. Ce réseau de
-          signatures croisées remplace l'autorité de certification des PKI classiques.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">⌨️ Commandes GPG essentielles</div>
         <div class="card-body" style="font-family: var(--font-mono, monospace); font-size: 12px; line-height: 2;">
           <code>gpg --gen-key</code> — Générer une paire de clés<br>
           <code>gpg --export -a "Nom"</code> — Exporter sa clé publique<br>
@@ -772,32 +713,7 @@
             ]
           },
         ],
-        desc: "Bob signe l'email avec sa clé privée. Alice utilise la clé publique de Bob pour vérifier la signature. Si la vérification réussit : c'est bien Bob qui a écrit cet email, et il n'a pas été modifié en transit. L'email n'est pas chiffré : tout le monde peut le lire, mais personne ne peut nier que Bob l'a envoyé."
-      },
-      both: {
-        title: 'Chiffrement + signature combinés',
-        flow: [
-          {
-            boxes: [
-              { t: 'Alice', c: 'alice' }, { t: 'signe avec clé privée Alice', c: 'lock' },
-              { t: '→', c: 'flow-arrow' }, { t: 'chiffre avec clé publique Bob', c: 'lock' },
-              { t: '→', c: 'flow-arrow' }, { t: 'Bob', c: 'bob' }
-            ]
-          },
-        ],
-        desc: "C'est l'usage le plus sécurisé. Le message est à la fois chiffré (seul Bob peut lire) et signé (Bob sait que c'est bien Alice qui a écrit). Bob déchiffre d'abord avec sa clé privée, puis vérifie la signature d'Alice avec la clé publique d'Alice."
-      },
-      eve: {
-        title: 'Attaque — pourquoi vérifier les empreintes ?',
-        flow: [
-          {
-            boxes: [
-              { t: 'Alice', c: 'alice' }, { t: '→', c: 'flow-arrow' }, { t: 'Fausse clé d\'Eve !', c: 'eve' },
-              { t: '→', c: 'flow-arrow' }, { t: 'Message intercepté', c: 'msg' }
-            ]
-          },
-        ],
-        desc: "Si Alice télécharge ce qu'elle croit être la clé de Bob mais qui est en réalité la clé d'Eve (attaque man-in-the-middle), elle chiffre le message pour Eve. C'est pourquoi il faut toujours vérifier l'empreinte de la clé (fingerprint) hors ligne — par téléphone, en personne, ou via une source de confiance. PGP ne peut pas vous protéger si vous utilisez une mauvaise clé."
+        desc: "Bob signe l'email avec sa clé privée. Alice utilise la clé publique de Bob pour vérifier la signature. Si la vérification réussit, c'est bien Bob qui a écrit cet email, et il n'a pas été modifié en transit. L'email n'est pas chiffré : tout le monde peut le lire et a la certitude que c'est exactement ce qu'a dit Bob (le message n'a pas été modifié.)"
       }
     };
 

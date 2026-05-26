@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --accent: #534AB7;
+      --accent-light: #EEEDFE;
+      --accent-mid: #7F77DD;
+      --teal: #0F6E56;
+      --teal-light: #E1F5EE;
+      --amber: #BA7517;
+      --amber-light: #FAEEDA;
+      --coral: #993C1D;
+      --coral-light: #FAECE7;
+      --gray-light: #F1EFE8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans, 'Anthropic Sans', system-ui, sans-serif);
+      background: transparent;
+      color: var(--color-text-primary);
+    }
+
+    h2.sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .guide {
+      padding: 1.5rem 0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: .75rem;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: .5rem;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Nav tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 0 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 7px 14px;
+      font-size: 13px;
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md, 8px);
+      background: transparent;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit;
+    }
+
+    .tab-btn:hover {
+      background: var(--color-background-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent-mid);
+    }
+
+    /* Panels */
+    .panel {
+      display: none;
+      padding: 0 1rem 2rem;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--color-background-primary);
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg, 12px);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: .4rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+
+    .badge-purple {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .badge-teal {
+      background: var(--teal-light);
+      color: var(--teal);
+    }
+
+    .badge-amber {
+      background: var(--amber-light);
+      color: var(--amber);
+    }
+
+    .badge-coral {
+      background: var(--coral-light);
+      color: var(--coral);
+    }
+
+    /* Key concept grid */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .concept-card {
+      border-radius: var(--border-radius-lg, 12px);
+      padding: 1rem;
+      border: 0.5px solid transparent;
+    }
+
+    .concept-card.purple {
+      background: var(--accent-light);
+      border-color: var(--accent-mid);
+    }
+
+    .concept-card.teal {
+      background: var(--teal-light);
+      border-color: #5DCAA5;
+    }
+
+    .concept-card.amber {
+      background: var(--amber-light);
+      border-color: #EF9F27;
+    }
+
+    .concept-card.coral {
+      background: var(--coral-light);
+      border-color: #F0997B;
+    }
+
+    .concept-card .label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: .4rem;
+    }
+
+    .concept-card.purple .label {
+      color: var(--accent);
+    }
+
+    .concept-card.teal .label {
+      color: var(--teal);
+    }
+
+    .concept-card.amber .label {
+      color: var(--amber);
+    }
+
+    .concept-card.coral .label {
+      color: var(--coral);
+    }
+
+    .concept-card .concept-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: .3rem;
+    }
+
+    .concept-card .concept-body {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content strong {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: .2rem;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Interactive scenario */
+    .scenario-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .scenario-btn {
+      padding: 8px 16px;
+      border-radius: 99px;
+      border: 0.5px solid var(--color-border-secondary);
+      background: transparent;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      transition: all .15s;
+    }
+
+    .scenario-btn:hover {
+      background: var(--color-background-secondary);
+    }
+
+    .scenario-btn.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent-mid);
+    }
+
+    .scenario-display {
+      background: var(--color-background-secondary);
+      border-radius: var(--border-radius-lg, 12px);
+      padding: 1.25rem;
+      min-height: 120px;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: .75rem;
+    }
+
+    .flow-box {
+      padding: 7px 14px;
+      border-radius: var(--border-radius-md, 8px);
+      font-size: 13px;
+      font-weight: 500;
+      border: 0.5px solid transparent;
+    }
+
+    .flow-box.alice {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent-mid);
+    }
+
+    .flow-box.bob {
+      background: var(--teal-light);
+      color: var(--teal);
+      border-color: #5DCAA5;
+    }
+
+    .flow-box.eve {
+      background: var(--coral-light);
+      color: var(--coral);
+      border-color: #F0997B;
+    }
+
+    .flow-box.lock {
+      background: var(--amber-light);
+      color: var(--amber);
+      border-color: #EF9F27;
+    }
+
+    .flow-box.msg {
+      background: var(--gray-light);
+      color: var(--color-text-secondary);
+    }
+
+    .flow-arrow {
+      font-size: 16px;
+      color: var(--color-text-tertiary);
+    }
+
+    .scenario-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-top: .75rem;
+      padding-top: .75rem;
+      border-top: 0.5px solid var(--color-border-tertiary);
+    }
+
+    /* FAQ accordion */
+    .faq-item {
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+    }
+
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: .9rem 0;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .faq-q:hover {
+      color: var(--accent);
+    }
+
+    .faq-icon {
+      font-size: 16px;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease, padding .2s;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding-bottom: .9rem;
+    }
+
+    /* Glossary */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .gloss-item {
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-md, 8px);
+      padding: .75rem 1rem;
+      background: var(--color-background-primary);
+    }
+
+    .gloss-term {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: .25rem;
+    }
+
+    .gloss-def {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: var(--font-mono, monospace);
+      font-size: 12px;
+      background: var(--color-background-secondary);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    .info-box {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent-mid);
+      border-radius: 0 var(--border-radius-md, 8px) var(--border-radius-md, 8px) 0;
+      padding: .75rem 1rem;
+      font-size: 13px;
+      color: var(--accent);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="py-2 bg-body-tertiary border-bottom">
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="https://basile-bargibant.web.app" class="nav-link link-body-emphasis px-2">Accueil</a></li>
+      </ul>
+      <ul class="nav">
+        <li class="nav-item"><a href="https://basile-bargibant.web.app/#contact" class="nav-link link-body-emphasis px-2">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="guide">
+
+    <div class="hero">
+      <div class="hero-badge">Guide</div>
+      <h1>PGP — Pretty Good Privacy</h1>
+      <p>Comprendre le chiffrement à clé publique, la signature numérique et la toile de confiance en quelques minutes.
+      </p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('concepts')">Les bases</button>
+      <button class="tab-btn" onclick="switchTab('fonctionnement')">Comment ça marche</button>
+      <button class="tab-btn" onclick="switchTab('scenarios')">Scénarios</button>
+      <button class="tab-btn" onclick="switchTab('usage')">Utilisation</button>
+      <button class="tab-btn" onclick="switchTab('faq')">Questions fréquentes</button>
+      <button class="tab-btn" onclick="switchTab('glossaire')">Glossaire</button>
+    </div>
+
+    <!-- Panel: Les bases -->
+    <div id="panel-concepts" class="panel active">
+      <div class="section-title">Les 4 concepts fondamentaux du PGP</div>
+
+      <div class="concept-grid">
+        <div class="concept-card purple">
+          <div class="label">Clé publique</div>
+          <div class="concept-body">Partagée librement avec tout le monde. N'importe qui peut l'utiliser pour vous
+            envoyer un message chiffré ou vérifier votre signature.</div>
+        </div>
+        <div class="concept-card teal">
+          <div class="label">Clé privée</div>
+          <div class="concept-body">Gardée absolument secrète. Seule vous pouvez déchiffrer les messages qui vous sont
+            destinés ou signer des documents en votre nom.</div>
+        </div>
+        <div class="concept-card amber">
+          <div class="label">Chiffrement</div>
+          <div class="concept-body">On chiffre avec la clé publique du destinataire. Seul lui peut lire le message, car
+            lui seul possède la clé privée correspondante.</div>
+        </div>
+        <div class="concept-card coral">
+          <div class="label">Signature</div>
+          <div class="concept-body">On signe avec sa propre clé privée. N'importe qui peut vérifier la signature avec
+            votre clé publique : elle prouve que c'est bien vous.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏛️ Analogie du coffre-fort postal</div>
+        <div class="card-body">
+          Imaginez qu'Alice distribue des de cadenas ouverts (sa clé publique) mais garde la seule clé qui les ouvre (sa
+          clé privée). Bob glisse un message dans une boîte, la ferme avec le cadenas d'Alice et la lui envoie.
+          Impossible pour qui que ce soit d'ouvrir cette boîte… sauf Alice avec sa clé.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔐 Pourquoi "asymétrique" ?</div>
+        <div class="card-body">
+          Contrairement au chiffrement symétrique (même clé pour chiffrer et déchiffrer), PGP utilise une paire de clés
+          mathématiquement liées. Ce que l'une chiffre, seule l'autre peut le déchiffrer — et inversement. Ce lien
+          repose sur des problèmes mathématiques réputés impossibles à résoudre en temps raisonnable (factorisation de
+          grands entiers, courbes elliptiques…).
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>💡 L'essentiel à retenir :</strong> PGP garantit confidentialité (seul le destinataire lit le message)
+        et authenticité (on sait qui a signé). Ces deux propriétés peuvent être utilisées ensemble ou séparément.
+      </div>
+    </div>
+
+    <!-- Panel: Fonctionnement -->
+    <div id="panel-fonctionnement" class="panel">
+      <div class="section-title">Étape par étape : chiffrer et signer</div>
+
+      <div class="card">
+        <div class="card-title"><span class="badge badge-amber">Chiffrer un message</span></div>
+        <div class="card-body">
+          <div class="steps" style="margin-top:.75rem">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>Obtenir la clé publique du destinataire</strong>
+                <p>Depuis un serveur de clés (<code>keys.openpgp.org</code>), une email, ou directement de la personne.
+                  Vérifier l'empreinte si possible.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>Générer une clé de session aléatoire</strong>
+                <p>PGP génère une clé symétrique temporaire (AES-256 par exemple) pour chiffrer le message réel — c'est
+                  plus rapide pour les gros fichiers.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>Chiffrer le message avec cette clé de session</strong>
+                <p>Le corps du message est chiffré symétriquement : rapide, même pour des fichiers volumineux.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <strong>Chiffrer la clé de session avec la clé publique du destinataire</strong>
+                <p>Seul le destinataire pourra déchiffrer la clé de session avec sa clé privée, puis déchiffrer le
+                  message.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <strong>Envoyer le tout</strong>
+                <p>Un seul fichier <code>.gpg</code> ou bloc <code>-----BEGIN PGP MESSAGE-----</code> contient message
+                  chiffré + clé de session chiffrée.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="badge badge-teal">Signer un document</span></div>
+        <div class="card-body">
+          <div class="steps" style="margin-top:.75rem">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>Calculer le hash du document</strong>
+                <p>Une empreinte numérique unique (SHA-256, SHA-512…) est calculée. Si un seul bit change, l'empreinte
+                  change complètement.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>Chiffrer le hash avec votre clé privée</strong>
+                <p>C'est votre signature. Seule votre clé privée peut créer cette signature.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>Le destinataire vérifie</strong>
+                <p>Il déchiffre la signature avec votre clé publique pour retrouver le hash, recalcule le hash du
+                  document reçu et compare. S'ils correspondent : authentique et intègre.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Scénarios -->
+    <div id="panel-scenarios" class="panel">
+      <div class="section-title">Choisissez un scénario</div>
+
+      <div class="scenario-picker">
+        <button class="scenario-btn active" onclick="showScenario('encrypt')">Envoyer un message chiffré</button>
+        <button class="scenario-btn" onclick="showScenario('sign')">Signer un email</button>
+        <button class="scenario-btn" onclick="showScenario('both')">Chiffrer + Signer</button>
+        <button class="scenario-btn" onclick="showScenario('eve')">Attaque (man-in-the-middle)</button>
+      </div>
+
+      <div class="scenario-display" id="scenario-display">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Panel: Utilisation -->
+    <div id="panel-usage" class="panel">
+      <div class="section-title">Cas d'usage courants</div>
+
+      <div class="card">
+        <div class="card-title">📧 Emails chiffrés</div>
+        <div class="card-body">Outils comme <strong>Thunderbird + Enigmail</strong>, <strong>GPG Suite</strong> (macOS)
+          ou <strong>Kleopatra</strong> (Windows) s'intègrent dans votre client mail pour chiffrer/signer
+          automatiquement vos emails avec vos correspondants.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📦 Vérification de logiciels</div>
+        <div class="card-body">Des distributions Linux (Debian, Ubuntu, Arch…) signent leurs paquets et ISOs avec PGP.
+          Vous pouvez vérifier qu'un fichier téléchargé n'a pas été altéré avec
+          <code>gpg --verify fichier.sig fichier.iso</code>.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔐 Gestionnaires de mots de passe</div>
+        <div class="card-body"><strong>pass</strong>, le gestionnaire de mots de passe Unix standard, chiffre chaque
+          entrée avec votre clé PGP. Votre coffre est un simple dossier de fichiers chiffrés.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🤝 Toile de confiance (Web of Trust)</div>
+        <div class="card-body">Plutôt qu'une autorité centrale, PGP repose sur la confiance distribuée. Si vous faites
+          confiance à Alice, et qu'Alice a signé la clé de Bob, vous pouvez faire confiance à Bob. Ce réseau de
+          signatures croisées remplace l'autorité de certification des PKI classiques.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⌨️ Commandes GPG essentielles</div>
+        <div class="card-body" style="font-family: var(--font-mono, monospace); font-size: 12px; line-height: 2;">
+          <code>gpg --gen-key</code> — Générer une paire de clés<br>
+          <code>gpg --export -a "Nom"</code> — Exporter sa clé publique<br>
+          <code>gpg --import cle.asc</code> — Importer une clé<br>
+          <code>gpg -e -r destinataire fichier</code> — Chiffrer<br>
+          <code>gpg -d fichier.gpg</code> — Déchiffrer<br>
+          <code>gpg --sign fichier</code> — Signer<br>
+          <code>gpg --verify fichier.sig</code> — Vérifier une signature
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: FAQ -->
+    <div id="panel-faq" class="panel">
+      <div class="section-title">Questions fréquentes</div>
+      <div id="faq-list"></div>
+    </div>
+
+    <!-- Panel: Glossaire -->
+    <div id="panel-glossaire" class="panel">
+      <div class="section-title">Glossaire PGP</div>
+      <div class="glossary-grid" id="glossary-grid"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // Tab switching
+    function switchTab(name) {
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        const panels = ['concepts', 'fonctionnement', 'scenarios', 'usage', 'faq', 'glossaire'];
+        b.classList.toggle('active', panels[i] === name);
+      });
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+    }
+
+    // Scenarios
+    const scenarios = {
+      encrypt: {
+        title: 'Alice envoie un message confidentiel à Bob',
+        flow: [
+          {
+            boxes: [
+              { t: 'Alice', c: 'alice' }, { t: '→', c: 'flow-arrow' }, { t: 'Clé publique de Bob', c: 'lock' },
+              { t: '→', c: 'flow-arrow' }, { t: 'Message chiffré', c: 'msg' }, { t: '→', c: 'flow-arrow' }, { t: 'Bob', c: 'bob' }
+            ]
+          },
+        ],
+        desc: 'Alice récupère la clé publique de Bob, chiffre son message avec. Le message voyage chiffré sur le réseau. Même si Eve intercepte le message, elle ne peut rien lire sans la clé privée de Bob. Bob déchiffre avec sa clé privée et lit le message.'
+      },
+      sign: {
+        title: 'Bob signe un email pour prouver son identité',
+        flow: [
+          {
+            boxes: [
+              { t: 'Bob', c: 'bob' }, { t: '+ sa clé privée', c: 'lock' }, { t: '→', c: 'flow-arrow' },
+              { t: 'Email + Signature', c: 'msg' }, { t: '→', c: 'flow-arrow' }, { t: 'Alice vérifie', c: 'alice' }
+            ]
+          },
+        ],
+        desc: "Bob signe l'email avec sa clé privée. Alice utilise la clé publique de Bob pour vérifier la signature. Si la vérification réussit : c'est bien Bob qui a écrit cet email, et il n'a pas été modifié en transit. L'email n'est pas chiffré : tout le monde peut le lire, mais personne ne peut nier que Bob l'a envoyé."
+      },
+      both: {
+        title: 'Chiffrement + signature combinés',
+        flow: [
+          {
+            boxes: [
+              { t: 'Alice', c: 'alice' }, { t: 'signe avec clé privée Alice', c: 'lock' },
+              { t: '→', c: 'flow-arrow' }, { t: 'chiffre avec clé publique Bob', c: 'lock' },
+              { t: '→', c: 'flow-arrow' }, { t: 'Bob', c: 'bob' }
+            ]
+          },
+        ],
+        desc: "C'est l'usage le plus sécurisé. Le message est à la fois chiffré (seul Bob peut lire) et signé (Bob sait que c'est bien Alice qui a écrit). Bob déchiffre d'abord avec sa clé privée, puis vérifie la signature d'Alice avec la clé publique d'Alice."
+      },
+      eve: {
+        title: 'Attaque — pourquoi vérifier les empreintes ?',
+        flow: [
+          {
+            boxes: [
+              { t: 'Alice', c: 'alice' }, { t: '→', c: 'flow-arrow' }, { t: 'Fausse clé d\'Eve !', c: 'eve' },
+              { t: '→', c: 'flow-arrow' }, { t: 'Message intercepté', c: 'msg' }
+            ]
+          },
+        ],
+        desc: "Si Alice télécharge ce qu'elle croit être la clé de Bob mais qui est en réalité la clé d'Eve (attaque man-in-the-middle), elle chiffre le message pour Eve. C'est pourquoi il faut toujours vérifier l'empreinte de la clé (fingerprint) hors ligne — par téléphone, en personne, ou via une source de confiance. PGP ne peut pas vous protéger si vous utilisez une mauvaise clé."
+      }
+    };
+
+    function showScenario(key) {
+      document.querySelectorAll('.scenario-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === {
+        encrypt: 'Envoyer un message chiffré', sign: 'Signer un email',
+        both: 'Chiffrer + Signer', eve: 'Attaque (man-in-the-middle)'
+      }[key]));
+      const s = scenarios[key];
+      let html = `<div style="font-size:14px;font-weight:500;margin-bottom:.75rem">${s.title}</div>`;
+      s.flow.forEach(row => {
+        html += '<div class="flow-row">';
+        row.boxes.forEach(b => {
+          if (b.c === 'flow-arrow') {
+            html += `<span class="flow-arrow">${b.t}</span>`;
+          } else {
+            html += `<span class="flow-box ${b.c}">${b.t}</span>`;
+          }
+        });
+        html += '</div>';
+      });
+      html += `<div class="scenario-desc">${s.desc}</div>`;
+      document.getElementById('scenario-display').innerHTML = html;
+    }
+    showScenario('encrypt');
+
+    // FAQ
+    const faqData = [
+      { q: "PGP et GPG, quelle différence ?", a: "PGP (Pretty Good Privacy) est la norme originale créée par Phil Zimmermann en 1991, puis commercialisée. GPG (GnuPG) est l'implémentation libre et gratuite du standard OpenPGP (RFC 4880). Dans la pratique, on utilise GPG mais on dit souvent PGP pour désigner le concept." },
+      { q: "Que se passe-t-il si je perds ma clé privée ?", a: "Vous ne pouvez plus déchiffrer les messages qui vous ont été envoyés avec votre ancienne clé publique. Il est crucial de faire une sauvegarde sécurisée de votre clé privée et de générer un certificat de révocation à l'avance pour pouvoir invalider votre clé sur les serveurs si nécessaire." },
+      { q: "Ma clé publique peut-elle être partagée sans risque ?", a: "Oui, c'est même le but. Vous pouvez la publier sur des serveurs de clés, dans votre signature email, sur votre site. Le risque : quelqu'un pourrait publier une fausse clé en votre nom — d'où l'importance de vérifier les empreintes hors ligne." },
+      { q: "PGP protège-t-il les métadonnées ?", a: "Non. PGP chiffre le contenu du message, pas les métadonnées : l'expéditeur, le destinataire, l'heure, l'objet de l'email restent visibles. Pour cacher les métadonnées, il faut des solutions complémentaires comme Tor ou des messageries dédiées (Signal)." },
+      { q: "Quelle taille de clé recommandée en 2024 ?", a: "Pour RSA, 4096 bits minimum. Pour les courbes elliptiques (Ed25519, Curve25519), les clés sont plus courtes (~256 bits) mais offrent une sécurité équivalente ou supérieure avec de meilleures performances. GPG recommande désormais les clés Ed25519/Curve25519 pour les nouveaux usages." },
+      { q: "Peut-on chiffrer pour plusieurs destinataires ?", a: "Oui. GPG permet de chiffrer un même message pour plusieurs clés publiques. Chaque destinataire peut déchiffrer le message avec sa clé privée. La commande : gpg -e -r alice@ex.com -r bob@ex.com fichier." }
+    ];
+
+    const faqList = document.getElementById('faq-list');
+    faqData.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'faq-item';
+      div.innerHTML = `<button class="faq-q" onclick="toggleFaq(${i})">${item.q}<i class="ti ti-plus faq-icon" aria-hidden="true"></i></button><div class="faq-a">${item.a}</div>`;
+      faqList.appendChild(div);
+    });
+
+    function toggleFaq(i) {
+      const items = document.querySelectorAll('.faq-item');
+      items[i].classList.toggle('open');
+    }
+
+    // Glossary
+    const glossary = [
+      { term: 'OpenPGP', def: 'Standard ouvert (RFC 4880) décrivant le format des clés et messages PGP. GPG en est la principale implémentation libre.' },
+      { term: 'Empreinte (fingerprint)', def: 'Hash court de la clé publique permettant de la vérifier hors ligne. Ex : A1B2 C3D4 E5F6…' },
+      { term: 'Toile de confiance', def: 'Réseau de signatures croisées entre utilisateurs établissant des niveaux de confiance sans autorité centrale.' },
+      { term: 'Passphrase', def: 'Mot de passe protégeant la clé privée stockée sur disque. Ne jamais laisser une clé privée sans passphrase.' },
+      { term: 'Certificat de révocation', def: 'Fichier généré à l\'avance permettant d\'invalider une clé sur les serveurs si elle est compromise ou perdue.' },
+      { term: 'Serveur de clés', def: 'Annuaire public de clés PGP. Ex : keys.openpgp.org, keyserver.ubuntu.com.' },
+      { term: 'Chiffrement hybride', def: 'PGP combine chiffrement asymétrique (pour échanger la clé de session) et symétrique (pour le message). Le meilleur des deux mondes.' },
+      { term: 'Sous-clés (subkeys)', def: 'Clés secondaires liées à votre clé principale pour des usages spécifiques (chiffrement, signature). Permettent de ne pas exposer la clé maîtresse.' },
+      { term: 'ASCII armor', def: 'Encodage Base64 des données binaires PGP pour les rendre copiables dans un email. Délimité par -----BEGIN PGP…-----.' },
+      { term: 'Ed25519 / Curve25519', def: 'Algorithmes modernes de courbes elliptiques recommandés pour les nouvelles clés GPG. Plus rapides et plus courts que RSA.' },
+    ];
+
+    const glossGrid = document.getElementById('glossary-grid');
+    glossary.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'gloss-item';
+      div.innerHTML = `<div class="gloss-term">${item.term}</div><div class="gloss-def">${item.def}</div>`;
+      glossGrid.appendChild(div);
+    });
+  </script>
+</body>
+
+</html>

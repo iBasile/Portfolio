@@ -1,0 +1,47 @@
+{
+  "name": "Bargi Studio",
+  "subtitle": "Apps de Basile Bargibant",
+  "description": "Bienvenue sur la source du Bargi Studio",
+  "iconURL": "https://i.imgur.com/Ep9dumm.png",
+  "website": "https://basile-bargibant.web.app/",
+  "patreonURL": "",
+  "tintColor": "#18114d",
+  "featuredApps": [],
+  "apps": [
+    {
+      "name": "Relax",
+      "bundleIdentifier": "fr.basilebargibant.LancerHache",
+      "marketplaceID": "",
+      "developerName": "Basile BARGIBANT",
+      "subtitle": "Relaxez-vous en lançant des haches sur une cible",
+      "localizedDescription": "Découvrez lancer de hache, une application relaxante qui vous permet de relâcher la pression en envoyant des haches sur une cible ! Ce n'est pas assez pour vous ? Ajoutez une image sur votre cible pour détruire la chose qui vous plaira !",
+      "iconURL": "https://i.imgur.com/B1WMJk5.png",
+      "tintColor": "#d49452",
+      "category": "games",
+      "screenshots": [
+        "https://i.imgur.com/xTbDT3v.png",
+        "https://i.imgur.com/8sYhNNe.png",
+        "https://i.imgur.com/5IfeEyc.png",
+        "https://i.imgur.com/dDBIdRY.png",
+        "https://i.imgur.com/4pjRwAa.jpeg"
+      ],
+      "versions": [
+        {
+          "downloadURL": "https://github.com/iBasile/LancerDeHache/releases/download/1.0/Relax.ipa",
+          "size": 4300000,
+          "version": "1.0",
+          "buildVersion": null,
+          "date": "2026-06-15T14:09:00+02:00",
+          "localizedDescription": "",
+          "minOSVersion": "16.0"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      },
+      "patreon": {}
+    }
+  ],
+  "news": []
+}

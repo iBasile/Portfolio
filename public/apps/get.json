@@ -28,11 +28,11 @@
       "versions": [
         {
           "version": "1.0",
-          "date": "2026-06-15T14:09:00+02:00",
-          "localizedDescription": "",
+          "date": "2026-06-15T12:09:00+02:00",
+          "localizedDescription": "Ajoutez une image pour détruire ce qui vous fera plaisir",
           "downloadURL": "https://github.com/iBasile/LancerDeHache/releases/download/1.0/Relax.ipa",
           "size": 4300000,
-          "buildVersion": null,
+          "buildVersion": "3",
           "minOSVersion": "16.0"
         }
       ],

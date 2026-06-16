@@ -9,12 +9,12 @@
   "featuredApps": [],
   "apps": [
     {
-      "name": "Relax",
+      "name": "Lancer de hache",
       "bundleIdentifier": "fr.basilebargibant.LancerHache",
       "marketplaceID": "",
       "developerName": "Basile BARGIBANT",
-      "subtitle": "Relaxez-vous en lançant des haches sur une cible",
-      "localizedDescription": "Découvrez lancer de hache, une application relaxante qui vous permet de relâcher la pression en envoyant des haches sur une cible ! Ce n'est pas assez pour vous ? Ajoutez une image sur votre cible pour détruire la chose qui vous plaira !",
+      "subtitle": "Relaxez-vous en lanÃ§ant des haches sur une cible",
+      "localizedDescription": "Decouvrez lancer de hache, une application relaxante qui vous permet de relacher la pression en envoyant des haches sur une cible ! Ce n'est pas assez pour vous ? Ajoutez une image sur votre cible pour detruire la chose qui vous plaira !",
       "iconURL": "https://i.imgur.com/B1WMJk5.png",
       "tintColor": "#d49452",
       "category": "games",
@@ -39,8 +39,7 @@
       "appPermissions": {
         "entitlements": [],
         "privacy": {}
-      },
-      "patreon": {}
+      }
     }
   ],
   "news": []

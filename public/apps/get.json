@@ -32,7 +32,6 @@
           "localizedDescription": "",
           "downloadURL": "https://github.com/iBasile/LancerDeHache/releases/download/1.0/Relax.ipa",
           "size": 4300000,
-          "buildVersion": null,
           "minOSVersion": "16.0"
         }
       ],
@@ -40,7 +39,6 @@
         "entitlements": [],
         "privacy": {}
       },
-      "patreon": {}
     }
   ],
   "news": []

@@ -27,18 +27,28 @@
       ],
       "versions": [
         {
+          "downloadURL": "https://github.com/iBasile/LancerDeHache/releases/download/1.0build2/Relax.ipa",
+          "size": 4300000,
+          "version": "1.0.1",
+          "buildVersion": "2",
+          "date": "2026-06-17T11:05:00+02:00",
+          "localizedDescription": "Corrections de bugs mineurs",
+          "minOSVersion": "16.0"
+        },
+        {
           "version": "1.0",
           "date": "2026-06-15T14:09:00+02:00",
           "localizedDescription": "",
           "downloadURL": "https://github.com/iBasile/LancerDeHache/releases/download/1.0/Relax.ipa",
           "size": 4300000,
+          "buildVersion": null,
           "minOSVersion": "16.0"
         }
       ],
       "appPermissions": {
         "entitlements": [],
         "privacy": {}
-      },
+      }
     }
   ],
   "news": []
